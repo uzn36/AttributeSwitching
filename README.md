@@ -2,7 +2,7 @@
 
 This repository contains code for the Attribute Switching mechanism.
 
-## Data Preparation
+## How it works?
 
 1. First, we train a diffusion model using two datasets:
    - FairFace dataset by Karkkainen, K., & Joo, J. [^1]
@@ -10,7 +10,9 @@ This repository contains code for the Attribute Switching mechanism.
    
    We base our training on the code available at https://github.com/VSehwag/minimal-diffusion.
 
-2. To ensure the use of the FairFace dataset, we made modifications to the "data.py" file.
+2. To ensure the utilization of the FairFace dataset, we implemented modifications to the 'data.py' file from the minimal-diffusion repository.
+
+3. Other training details, please refer https://github.com/VSehwag/minimal-diffusion repository.
 
 If you plan to use this code for attribute switching, you can do so without cloning the https://github.com/VSehwag/minimal-diffusion repository. However, if you choose to use that code, please make sure to give credit to the original repository: https://github.com/VSehwag/minimal-diffusion.
 
