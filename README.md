@@ -8,9 +8,8 @@ This repository contains code for the Attribute Switching mechanism.
    - FairFace dataset by Karkkainen, K., & Joo, J. [^1]
    - CelebA dataset by Liu, Z., Luo, P., Wang, X., & Tang, X [^2]
    
-   We base our training on the code available at https://github.com/VSehwag/minimal-diffusion.
-
-2. To ensure the utilization of the FairFace dataset, we implemented modifications to the 'data.py' file from the minimal-diffusion repository.
+2. We base our training on the code available at https://github.com/VSehwag/minimal-diffusion.
+   To ensure the utilization of the FairFace dataset, we implemented modifications to the 'data.py' file from the minimal-diffusion repository.
 
 3. Other training details, please refer https://github.com/VSehwag/minimal-diffusion repository.
 
