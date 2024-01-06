@@ -1,6 +1,7 @@
 # Attribute Switching Mechanism
 
 This repository contains code for the Attribute Switching mechanism, which allows you to perform attribute manipulation in images.
+
 Please refer the paper "Fair Sampling in Diffusion Models through Switching Mechanism" (AAAI24 accepted paper) for more details about the mechanism.
 
 ## Introduction
