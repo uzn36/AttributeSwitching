@@ -165,145 +165,7 @@ class GuassianDiffusion:
                 final = final.detach()
         return final
     
-#     def sample_remain_from_reverse_process(
-#         self, model, final, timesteps=None, model_kwargs={}, ddim=False, time = None
-#     ):
-#         """Sampling images by iterating over all timesteps.
 
-#         model: diffusion model
-#         xT: Starting noise vector.
-#         timesteps: Number of sampling steps (can be smaller the default,
-#             i.e., timesteps in the diffusion process).
-#         model_kwargs: Additional kwargs for model (using it to feed class label for conditioning)
-#         ddim: Use ddim sampling (https://arxiv.org/abs/2010.02502). With very small number of
-#             sampling steps, use ddim sampling for better image quality.
-
-#         Return: An image tensor with identical shape as XT.
-#         """
-#         model.eval()
-#         if time == None:
-#             return final
-# #         final = xT
-
-#         # sub-sampling timesteps for faster sampling
-#         timesteps = timesteps or self.timesteps
-#         new_timesteps = np.linspace(
-#             0, self.timesteps - 1, num=timesteps, endpoint=True, dtype=int
-#         )
-#         alpha_bar = self.scalars["alpha_bar"][new_timesteps]
-#         new_betas = 1 - (
-#             alpha_bar / torch.nn.functional.pad(alpha_bar, [1, 0], value=1.0)[:-1]
-#         )
-#         scalars = self.get_all_scalars(
-#             self.alpha_bar_scheduler, timesteps, self.device, new_betas
-#         )
-
-#         time = int(timesteps / self.timesteps * time)
-        
-#         for i, t in zip(np.arange(timesteps)[time::-1], new_timesteps[time::-1]):
-#             with torch.no_grad():
-#                 current_t = torch.tensor([t] * len(final), device=final.device)
-#                 current_sub_t = torch.tensor([i] * len(final), device=final.device)
-#                 pred_epsilon = model(final, current_t, **model_kwargs)
-#                 # using xt+x0 to derive mu_t, instead of using xt+eps (former is more stable)
-#                 pred_x0 = self.get_x0_from_xt_eps(
-#                     final, pred_epsilon, current_sub_t, scalars
-#                 )
-#                 pred_mean = self.get_pred_mean_from_x0_xt(
-#                     final, pred_x0, current_sub_t, scalars
-#                 )
-#                 if i == 0:
-#                     final = pred_mean
-#                 else:
-#                     if ddim:
-#                         final = (
-#                             unsqueeze3x(scalars["alpha_bar"][current_sub_t - 1]).sqrt()
-#                             * pred_x0
-#                             + (
-#                                 1 - unsqueeze3x(scalars["alpha_bar"][current_sub_t - 1])
-#                             ).sqrt()
-#                             * pred_epsilon
-#                         )
-#                     else:
-#                         final = pred_mean + unsqueeze3x(
-#                             scalars.beta_tilde[current_sub_t].sqrt()
-#                         ) * torch.randn_like(final)
-#                 final = final.detach()
-#         return final
-    
-#     def sample_remain_from_reverse_process(
-#         self, model, final, timesteps=None, model_kwargs={}, ddim=False, time = None, time_prev = None
-#     ):
-#         """Sampling images by iterating over all timesteps.
-
-#         model: diffusion model
-#         xT: Starting noise vector.
-#         timesteps: Number of sampling steps (can be smaller the default,
-#             i.e., timesteps in the diffusion process).
-#         model_kwargs: Additional kwargs for model (using it to feed class label for conditioning)
-#         ddim: Use ddim sampling (https://arxiv.org/abs/2010.02502). With very small number of
-#             sampling steps, use ddim sampling for better image quality.
-
-#         Return: An image tensor with identical shape as XT.
-#         """
-#         model.eval()
-#         if time == None:
-#             return final
-# #         final = xT
-
-#         # sub-sampling timesteps for faster sampling
-#         timesteps = timesteps or self.timesteps
-#         new_timesteps = np.linspace(
-#             0, self.timesteps - 1, num=timesteps, endpoint=True, dtype=int
-#         )
-#         alpha_bar = self.scalars["alpha_bar"][new_timesteps]
-#         new_betas = 1 - (
-#             alpha_bar / torch.nn.functional.pad(alpha_bar, [1, 0], value=1.0)[:-1]
-#         )
-#         scalars = self.get_all_scalars(
-#             self.alpha_bar_scheduler, timesteps, self.device, new_betas
-#         )
-
-#         time = int(timesteps / self.timesteps * time)
-#         if time_prev:
-#             first = True
-#             time_prev = int(timesteps / self.timesteps * time_prev)
-            
-#         else:
-#             first = False
-#         for i, t in zip(np.arange(timesteps)[time::-1], new_timesteps[time::-1]): #500, 0,2,4,...
-#             if first:
-#                 i = time_prev
-#                 first = False
-#             with torch.no_grad():
-#                 current_t = torch.tensor([t] * len(final), device=final.device) #1000
-#                 current_sub_t = torch.tensor([i] * len(final), device=final.device) #500
-#                 pred_epsilon = model(final, current_t, **model_kwargs)#1000시점에서의 noise가 뽑히고
-#                 # using xt+x0 to derive mu_t, instead of using xt+eps (former is more stable)
-#                 pred_x0 = self.get_x0_from_xt_eps(# alpha_bar 등은 500에서 값이 뽑혀서 x_0를 예측해
-#                     final, pred_epsilon, current_sub_t, scalars
-#                 )
-#                 pred_mean = self.get_pred_mean_from_x0_xt(
-#                     final, pred_x0, current_sub_t, scalars
-#                 )
-#                 if i == 0:
-#                     final = pred_mean
-#                 else:
-#                     if ddim:
-#                         final = (
-#                             unsqueeze3x(scalars["alpha_bar"][current_sub_t - 1]).sqrt()
-#                             * pred_x0
-#                             + (
-#                                 1 - unsqueeze3x(scalars["alpha_bar"][current_sub_t - 1])
-#                             ).sqrt()
-#                             * pred_epsilon
-#                         )
-#                     else:
-#                         final = pred_mean + unsqueeze3x(
-#                             scalars.beta_tilde[current_sub_t].sqrt()
-#                         ) * torch.randn_like(final)
-#                 final = final.detach()
-#         return final
     def sample_remain_from_reverse_process(
         self, model, final, timesteps=None, model_kwargs={}, ddim=False, time = None, time_prev = None
     ):
@@ -322,7 +184,6 @@ class GuassianDiffusion:
         model.eval()
         if time == None:
             return final
-#         final = xT
 
         # sub-sampling timesteps for faster sampling
         timesteps = timesteps or self.timesteps
@@ -345,34 +206,26 @@ class GuassianDiffusion:
         else:
             first = False
             
-        for i, t in zip(np.arange(timesteps)[time::-1], new_timesteps[time::-1]): #500, 499,... // 1000, 998, ....,
-            ###ex. 900에서 끊어놨다면, time = 900 -> 450이 되어 있고, 그럼 i 는 450부터 하나씩 뽑는중 new는 900부터,,
-            ##만약 prev = 900이고, 750에서 시작한다면, time = 375, i: 375~, t=750~
-#             t_sub_1 = t-1
-            current_sub_t_sub_1 = torch.tensor([i] * len(final), device=final.device) - 1 #374
+        for i, t in zip(np.arange(timesteps)[time::-1], new_timesteps[time::-1]): 
             
-
+            current_sub_t_sub_1 = torch.tensor([i] * len(final), device=final.device) - 1 
+            
             if first:
-                t = time_prev #900
+                t = time_prev 
                 i = int(timesteps / self.timesteps * time_prev)
-#                 current_t_sub_1 = torch.tensor([time_prev] * len(final), device=final.device) #900
-#                 current_sub_t_sub_1 = torch.tensor([int(timesteps / self.timesteps * time_prev)] * len(final), device=final.device) #450
                 first = False
-#             else:
-#                 current_t_sub_1 = current_t - 1 
-#                 current_sub_t_sub_1 = current_sub_t -1 #374 
-#             print(i)
+
             with torch.no_grad():
-                current_t = torch.tensor([t] * len(final), device=final.device) #750 // 900
-                current_sub_t = torch.tensor([i] * len(final), device=final.device) #375 // 450
-                pred_epsilon = model(final, current_t, **model_kwargs)#750시점에서의 noise가 뽑히고 // 900시점에서의 noise가 뽑히고,
+                current_t = torch.tensor([t] * len(final), device=final.device) 
+                current_sub_t = torch.tensor([i] * len(final), device=final.device) 
+                pred_epsilon = model(final, current_t, **model_kwargs)
                 # using xt+x0 to derive mu_t, instead of using xt+eps (former is more stable)
-                pred_x0 = self.get_x0_from_xt_eps(# alpha_bar 등은 scalars.alpha_bar[t] 여기서 : alpha_bar[375] = 750시점.
-                    final, pred_epsilon, current_sub_t, scalars #current_sub_t_sub_1+1
+                pred_x0 = self.get_x0_from_xt_eps(#
+                    final, pred_epsilon, current_sub_t, scalars 
                 )
                 pred_mean = self.get_pred_mean_from_x0_xt(
-                    final, pred_x0, current_sub_t, scalars # alpha_bar 등은 scalars.alpha_bar[t] 여기서 : alpha_bar[375] = 750시점.
-                )#current_sub_t_sub_1+1
+                    final, pred_x0, current_sub_t, scalars
+                )
                 
                 if i == 0:
                     final = pred_mean
