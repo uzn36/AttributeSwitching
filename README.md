@@ -4,7 +4,7 @@ This repository contains code for the Attribute Switching mechanism, which allow
 
 Please refer the paper "Fair Sampling in Diffusion Models through Switching Mechanism" (AAAI24 accepted paper) for more details about the mechanism.
 
-You can access the full version of the paper at \url{https://arxiv.org/abs/2401.03140}
+You can access the full version of the paper at https://arxiv.org/abs/2401.03140
 ## Introduction
 We base our training on the code available at https://github.com/VSehwag/minimal-diffusion. To ensure the utilization of the FairFace dataset, we implemented modifications to the 'data.py' file from the minimal-diffusion repository. For more details about the training process, please refer to the [minimal-diffusion repository](https://github.com/VSehwag/minimal-diffusion).
 
