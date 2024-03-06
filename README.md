@@ -27,6 +27,10 @@ To use this code, follow these steps:
    - Finally, use the `sampling_with_attribute_switching.ipynb` notebook to sample data with attribute switching.
    - Provide the model path and the $\tau$ value obtained in the previous step.
 
+## Contact
+If you have any questions about code or want models which I trained, feel free to e-mail me: uznhigh@snu.ac.kr
+
+
 ## References
 
 - Karkkainen, K., & Joo, J. (2021). FairFace: Face Attribute Dataset for Balanced Race, Gender, and Age for Bias Measurement and Mitigation. In Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (pp. 1548-1558) [^1].
