@@ -28,7 +28,7 @@ To use this code, follow these steps:
    - Provide the model path and the $\tau$ value obtained in the previous step.
 
 ## Contact
-If you have any questions about code or would like access to the models I've used in my paper, feel free to e-mail me at uznhigh@snu.ac.kr 
+If you have any questions about code or would like access to the models I've used in my paper, feel free to e-mail me at uznhigh [AT] snu.ac.kr 
 
 ## References
 
