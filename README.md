@@ -30,6 +30,20 @@ To use this code, follow these steps:
 ## Contact
 If you have any questions about code or would like access to the models I've used in my paper, feel free to e-mail me at uznhigh [AT] snu.ac.kr 
 
+## Citation
+If you gained insights from this paper, please cite the following work:
+
+```bibtex
+@inproceedings{choi2024fair,
+  title={Fair sampling in diffusion models through switching mechanism},
+  author={Choi, Yujin and Park, Jinseong and Kim, Hoki and Lee, Jaewook and Park, Saerom},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={38},
+  number={20},
+  pages={21995--22003},
+  year={2024}
+}
+```
 ## References
 
 - Karkkainen, K., & Joo, J. (2021). FairFace: Face Attribute Dataset for Balanced Race, Gender, and Age for Bias Measurement and Mitigation. In Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (pp. 1548-1558) [^1].
