@@ -27,7 +27,7 @@ To use this code, follow these steps:
    - Finally, use the `sampling_with_attribute_switching.ipynb` notebook to sample data with attribute switching.
    - Provide the model path and the $\tau$ value obtained in the previous step.
 
-To run the code using pre-trained models from the [Hugging Face Diffuser](https://huggingface.co/blog/stable_diffusion), use the `pretrained_diffuser_switching.ipynb` notebook.
+To run the code using pre-trained models from the [Stable diffusion with Hugging Face Diffuser](https://huggingface.co/blog/stable_diffusion), use the `pretrained_diffuser_switching.ipynb` notebook.
 
 ## Contact
 If you have any questions about code or would like access to the models I've used in my paper, feel free to e-mail me at uznhigh [AT] snu.ac.kr 
